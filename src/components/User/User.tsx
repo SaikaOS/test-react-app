@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { useGetUsersQuery } from '../../services/usersApi'
+import UserItem from './UserItem'
 
-const User = () => {
+const User:FC = () => {
     const {data} = useGetUsersQuery()
   return (
     <div>
         {data?.map(user => (
-            <div key={user.id}>
-                <p>Author: {user.name}</p>
-                <p>Company: {user.company.name}</p>
-            </div>
+           <UserItem key={user.id} name={user.name} company={user.company}/>
         ))}
     </div>
   )

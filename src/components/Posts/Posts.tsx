@@ -11,7 +11,7 @@ const Posts:FC = () => {
   const {data} = useGetPostsQuery(5)
   return (
     <div className={styles.posts}>
-      {data?.map(post => (
+       {data?.map(post => (
         <PostItem key={post.id} title={post.title} body={post.body}/>
       ))}
     </div>

@@ -6,7 +6,7 @@ export type UserType = {
     company: CompanyType;
 }
 
-type CompanyType = {
+export type CompanyType = {
     name: string;
 }
 
