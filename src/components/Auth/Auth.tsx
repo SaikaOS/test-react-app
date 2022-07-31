@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { setLogin, setPassword } from '../../store/authSlice'
 import { useAppDispatch, useAppSelector } from '../../store/store'
@@ -12,15 +12,17 @@ const Auth:FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const handleSubmit = (e:any) => {
-    e.preventDefault()
-    signup.login !== LOGIN || signup.password !== PASSWORD ? 
-    alert('Incorrect login or password. Please try again') :
-    navigate('/posts')
-  }
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+     e.preventDefault()
+    if(e.key === 'Enter') {
+      signup.login !== LOGIN || signup.password !== PASSWORD ? 
+      alert('Incorrect login or password. Please try again') :
+      navigate('/posts')
+    }
+ };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form}>
       <p className={styles.form__title}>Autorization</p>
         <div className={styles.auth}>
         <label className={styles.auth__label}>login</label>
@@ -38,9 +40,9 @@ const Auth:FC = () => {
         value={signup.password}
         onChange={e => dispatch(setPassword(e.target.value))}
         className={styles.auth__input}
+        onKeyUp={handleKeyPress}
         />
         </div>
-        <button>Submit</button>
     </form>
   )
 }
