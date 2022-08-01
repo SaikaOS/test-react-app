@@ -5,3 +5,9 @@
     margin: 50px auto;
     width: 60%;
 }
+
+@media screen and (max-width: 1024px) {
+    .posts {
+        width: 80%;
+    }
+}

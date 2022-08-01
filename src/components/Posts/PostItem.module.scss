@@ -7,7 +7,7 @@
     .userWrapper {
         display: flex;
         justify-content: space-between;
-        width: 350px;
+        max-width: 350px;
     }
     
     .user {
@@ -27,4 +27,17 @@
         justify-content: space-around;
         height: 150px;
     }
+}
+
+@media screen and (max-width: 768px) {
+   .userWrapper {
+    flex-direction: column;
+    img {
+        height: 150px;
+        width: 150px;
+    }
+   }
+   .post {
+    font-size: 12px;
+   }
 }

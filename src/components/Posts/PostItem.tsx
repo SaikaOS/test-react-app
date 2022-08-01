@@ -22,7 +22,6 @@ const PostItem:FC<PostItemType> = (post) => {
     <div className={styles.postItem}>    
     <div className={styles.userWrapper}>
     <img src={post.thumbnailUrl} alt=""/>
-    <p>id:{post.albumId}</p>
     <div className={styles.user}>
     <p>Author:{post.name}</p>
     <p>Company:{post.companyName}</p>
