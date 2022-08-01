@@ -1,16 +1,16 @@
 import React, { FC } from 'react'
-import { useGetUsersQuery } from '../../services/usersApi'
+import { useAppSelector } from '../../store/store'
 import UserItem from './UserItem'
 
-const User:FC = () => {
-    const {data} = useGetUsersQuery()
+const Users:FC = () => {
+    const data = useAppSelector(state => state.posts)
   return (
     <div>
-        {data?.map(user => (
+        {data.users.map(user => (
            <UserItem key={user.id} name={user.name} company={user.company}/>
         ))}
     </div>
   )
 }
 
-export default User
+export default Users

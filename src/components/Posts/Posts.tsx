@@ -1,18 +1,28 @@
-import React, { FC } from 'react'
-import { useGetPostsQuery } from '../../services/postsApi'
+import React, { FC, useEffect } from 'react'
+import { fetchPosts, fetchUsers } from '../../store/postsSlice'
+import { useAppDispatch, useAppSelector } from '../../store/store'
 import PostItem from './PostItem'
 import styles from './Posts.module.scss'
 
 const Posts:FC = () => {
+  const dispatch = useAppDispatch()
+  const state = useAppSelector(state => state.posts)  
+
+  const userName = state.users.map(user => user.name)  
+  const userCompanyName = state.users.map(user => user.company.name)  
+
   const getRandomNum = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
-  getRandomNum(5, 15)
-  const {data} = useGetPostsQuery(5)
+  useEffect(() => {
+  dispatch(fetchPosts(getRandomNum(5, 15)))
+  dispatch(fetchUsers())
+  }, [dispatch])
   return (
     <div className={styles.posts}>
-       {data?.map(post => (
-        <PostItem key={post.id} title={post.title} body={post.body}/>
+      {state.posts.map((post, index) => (
+          <PostItem key={post.id} body={post.body} title={post.title} 
+          name={userName[index]} companyName={userCompanyName[index]}/>
       ))}
     </div>
   )
