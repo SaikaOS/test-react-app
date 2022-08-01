@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { PostType } from "../services/postsApi";
-import { UserType } from "../services/usersApi";
+import { PhotoType, PostType, UserType } from "../types";
 
 export const fetchPosts = createAsyncThunk<PostType[], number, {rejectValue: string}>(
     'post/fetchPosts',
@@ -26,18 +25,32 @@ export const fetchUsers = createAsyncThunk<UserType[], undefined, {rejectValue: 
     }
 )
 
+export const fetchPhotos = createAsyncThunk<PhotoType[], undefined, {rejectValue: string}>(
+    'post/fetchPhotos',
+    async function (_, {rejectWithValue}) {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/photos`)
+        if(!response.ok) {
+            return rejectWithValue("Error!")
+        }
+        const data = await response.json()
+        return data
+    }
+)
+
 type Posts = {
     posts: PostType[];
     error: string | null;
     loading: boolean;
     users: UserType[];
+    photos: PhotoType[];
 }
 
 const initialState:Posts = {
    posts: [],
+   photos: [],
+   users: [],
    error: null,
    loading: false,
-   users: [],
 }
 
 export const postsSlice = createSlice({
@@ -51,6 +64,9 @@ export const postsSlice = createSlice({
           }),
           builder.addCase(fetchUsers.fulfilled, (state, action) => {
             state.users = action.payload
+          }),
+          builder.addCase(fetchPhotos.fulfilled, (state, action) => {
+            state.photos = action.payload
           })
     }
 })
