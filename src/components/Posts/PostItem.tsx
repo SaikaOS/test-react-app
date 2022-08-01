@@ -1,22 +1,28 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
+import { fetchPhotos } from '../../store/postsSlice';
+import { useAppDispatch } from '../../store/store';
 import styles from './PostItem.module.scss'
 
 export type PostItemType = {
-    id?: number;
+    id?: number | undefined;
     title: string;
     body: string;
     name?: any;
     companyName?: string;
-    albumId : number | undefined;
+    albumId : any;
     thumbnailUrl: string;
 }
 
-const PostItem:FC<PostItemType> = (post) => {   
+const PostItem:FC<PostItemType> = (post) => { 
+  const dispatch = useAppDispatch() 
+  useEffect(() => {
+    dispatch(fetchPhotos(post.albumId))
+  }, [dispatch])
   return (
     <div className={styles.postItem}>    
     <div className={styles.userWrapper}>
-    <img src={post.thumbnailUrl} alt="" />
-    <p>AlbumId:{post.albumId}</p>
+    <img src={post.thumbnailUrl} alt=""/>
+    <p>id:{post.albumId}</p>
     <div className={styles.user}>
     <p>Author:{post.name}</p>
     <p>Company:{post.companyName}</p>
