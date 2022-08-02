@@ -6,8 +6,17 @@
     width: 60%;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1025px) {
     .posts {
-        width: 80%;
+        width: 30%;
+        grid-template-columns: repeat(1, 1fr);
+        height: 700px;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    .posts {
+        width: 292px;
+        height: 200px;
     }
 }

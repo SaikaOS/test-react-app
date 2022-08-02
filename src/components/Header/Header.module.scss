@@ -25,3 +25,22 @@
         margin-right: 41px;
     }
 }
+
+@media screen and (max-width: 769px) {
+    .header__block_logged__username {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 367px) {
+    .header__block_logged {
+        display: none;
+    }
+    .header__logout {
+        margin-right: 0;
+    }
+    img {
+        width: 100%;
+    }
+}
